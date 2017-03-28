@@ -19,7 +19,7 @@
          <div class="col-sm-4">				 
             <label for="pass">Rooms</label>					
         
-            <input class="form-control" name="brooms" type="text" maxlength="2" value="{{$booking->BookCount or ''}}" />
+            <input class="form-control formnumeric" name="brooms" type="text" maxlength="2" value="{{$booking->BookCount or ''}}" />
   	</div> <div class="col-sm-4">							 
             <label for="pass_confirmation">Start Date	</label>					
         

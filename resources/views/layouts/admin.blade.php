@@ -106,5 +106,6 @@
 </div>
     <script src="{{ URL::asset('public/js/bootstrap.min.js')}}" type="text/javascript"></script>
    <script src="{{ URL::asset('public/js/jquery-ui.js')}}" type="text/javascript"></script>
+   <script src="{{ URL::asset('public/js/custom.js')}}" type="text/javascript"></script>
 </body>
 </html>
