@@ -14,10 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::controllers([
+   'password' => 'Auth\PasswordController',
+]);
+
 
 Route::get('eventview', 'CalendarController@eventview');
 Route::get('login', 'CalendarController@login');
 Route::get('logout', 'CalendarController@logout');
+//Route::get('adduser', 'CalendarController@adduser');
 
 Route::post('dologin', 'CalendarController@dologin');
   Route::group(['middleware' => 'checksession'], function () {

@@ -5,19 +5,17 @@
 <h2>Welcome {{Session::get('username') }}</h2>
  <div id="fullview" class="content col-sm-11"></div> 
            </div>
-        <script src="public/js/moment.min.js" type="text/javascript"></script>
-         <script src="public/js/fullcalendar.min.js" type="text/javascript"></script>
-        
-        <script type="text/javascript">
-		$(document).ready(function() {
+<script src="public/js/moment.min.js" type="text/javascript"></script>
+<script src="public/js/fullcalendar.min.js" type="text/javascript"></script>        
+<script type="text/javascript">
+	$(document).ready(function() {
 		
 		$('#fullview').fullCalendar({
 			header: {
 			left: 'prev,next today',
 			center: 'title',
-			right: 'month,agendaWeek,listWeek'
+			right: 'month,agendaWeek,listMonth'
 			},	
-			firstDay:1,
 			fixedWeekCount :false,
 			selectable:true,
 			select: function (start, end, jsEvent, view) {
@@ -35,10 +33,9 @@
 				}
 			},
 			 eventClick: function(event) {
-				 window.location.href="{{ asset('/') }}admin/editbooking/"+event.id;
+				 window.location.href="{{asset('/')}}admin/editbooking/"+event.id;
 			 }
-		});
-		
+		});		
 	});
 		</script>
 @endsection

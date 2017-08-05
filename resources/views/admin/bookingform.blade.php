@@ -17,8 +17,7 @@
         </div>
         <div class="form-group">	
          <div class="col-sm-4">				 
-            <label for="pass">Rooms</label>					
-        
+            <label for="pass">Fillable</label>	
             <input class="form-control formnumeric" name="brooms" type="text" maxlength="2" value="{{$booking->BookCount or ''}}" />
   	</div> <div class="col-sm-4">							 
             <label for="pass_confirmation">Start Date	</label>					
@@ -26,8 +25,7 @@
             <input class="form-control datepicker" name="bsdate" type="text" value="{{isset($booking)?
             date('m/d/Y',strtotime($booking->BookDate)):''}}{{Request::get('t_start') }}" />
         	</div><div class="col-sm-4">						 
-            <label for="pass_confirmation">End Date	</label>					
-        
+            <label for="pass_confirmation">End Date	</label>		
             <input class="form-control datepicker" name="bedate" type="text" value="{{isset($booking)&&$booking->BookEndDate!=''?
             date('m/d/Y',strtotime($booking->BookEndDate)):''}}{{Request::get('t_end') }}" />
         </div></div>

@@ -9,12 +9,15 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Booking;
 use Session;
+use Hash;
 class AdminController extends Controller {
 	public function __construct(){
 	
    }
 
    public function index(){
+	 
+	 
     return view('admin/dashboard');
    }
    public function changepass(){
@@ -30,6 +33,8 @@ class AdminController extends Controller {
 	 
     return view('admin/bookingform');
    }
+   
+  
    
    public function savebooking(Request $request){
     $validator = Validator::make($request->all(), [
@@ -126,20 +131,16 @@ class AdminController extends Controller {
 //set validation amd modify messages
 	$niceNames = array(
 		'oldpass' => 'Old Password',
-		'pass'=>'New password'
+		'pass'=>'New Password'
 		
 	);
 	$validator->setAttributeNames($niceNames); 
     if ($validator->fails()) {
 		
-        return redirect('/admin/changepass')
-            ->withInput()
-            ->withErrors($validator);
-    }
-	
+        return redirect('/admin/changepass')->withInput()            
+          									->withErrors($validator);
+    }	
 	$resp = User::validatelogin($request->session()->get('usermail'),$request->oldpass);
-	
-		
 	
 	if(empty($resp))
 		$request->session()->flash('fl_message', 'Enter valid Old Password');

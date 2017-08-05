@@ -17,6 +17,8 @@ class Booking extends Model
 const CREATED_AT = 'BookCreatedDt';
 const UPDATED_AT = 'BookModifiedDt';
    
-	
+	public function deletebooking($id){
+		DB::table('booking')->where('BookID', $id)->delete();
+	}
 	
 }

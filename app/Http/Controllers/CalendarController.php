@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use Hash;
 
 class CalendarController extends Controller
 {
@@ -15,6 +17,7 @@ class CalendarController extends Controller
 		
    }
    public function login(){
+	   
 	   return view('login');
    }
    
@@ -23,26 +26,32 @@ class CalendarController extends Controller
 	   return redirect('login');
 	}
 	
+	/*public function adduser(){
+		$userobj = new User;
+		$userobj->UserName='test1';
+		$userobj->UserEmail='testplayer1@gmail.com';
+		$userobj->UserPassword = Hash::make('12345678');
+		$userobj->save();
+	}*/
+	
    public function dologin(Request $request){
 	  $validator = Validator::make($request->all(), [
             'Email' => 'required|email',
-            'Password' => 'required',
+            'Password' => 'required'
         ]);
 
         if ($validator->fails()) {
-            return redirect('login')
-                        ->withErrors($validator)
-                        ->withInput();
+            return redirect('login')->withErrors($validator)->withInput();                    
+                       
         }
-		$resp=User::validatelogin( $request->Email,  $request->Password);
-
-		if (!empty($resp))
-		{
-		  $request->session()->put(array('username'=>$resp[0]->UserName,'userid'=>$resp[0]->id,'usermail'=>$resp[0]->UserEmail));
 		
+		if (Auth::attempt( array('UserEmail'=>$request->Email,  'password'=>$request->Password)))
+		{
+			$userarr =  Auth::user();
+		   	$request->session()->put(array('username'=>$userarr->UserName,'userid'=>$userarr->id,'usermail'=>$userarr->UserEmail));		
 			return redirect('admin');
 		}else{
-		  $request->session()->flash('fl_message', 'Invalid Email or passsword');
+		  $request->session()->flash('fl_message', 'Invalid Email or Password');
 		   return view('login');
 		}
 	   
@@ -56,7 +65,7 @@ class CalendarController extends Controller
 	   $resp=array();
 	   if(!empty($events)){
 		   foreach($events as $loop){
-			   $resp[]=array('id'=>$loop->BookID,'title'=>$loop->BookName.'- rooms('.$loop->BookCount.')',
+			   $resp[]=array('id'=>$loop->BookID,'title'=>$loop->BookName.'- filler('.$loop->BookCount.')',
 			   'start'=>$loop->BookDate,'end'=>$loop->BookEndDate.'T23:59:00','details'=>$loop->BookDetails);
 		   }
 	   }

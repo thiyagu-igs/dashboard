@@ -7,9 +7,9 @@
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
-            
+           @if( Session::has('fl_message'))
         <li>{!! Session::get('fl_message') !!}</li>
-            
+            @endif
         </ul>
     </div>
 @endif

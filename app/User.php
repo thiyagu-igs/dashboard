@@ -37,6 +37,9 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+	public function getAuthPassword() {
+        return $this->UserPassword;
+    }
 	
 	public function getuserdet($email){
 		if($email!='')
@@ -47,13 +50,12 @@ class User extends Model implements AuthenticatableContract,
 	
 	public static function validatelogin($email,$pass){
 		if($email!='')
-    	return DB::table('users')->where(array('UserEmail'=> $email,'UserPassword'=>md5($pass)))->get();
+    	return DB::table('users')->where(array('UserEmail'=> $email,'UserPassword'=>Hash::make($pass)))->get();
 		else
 		return array();
     }
 	
 	 public static function updatepass($uid,$newpass){
-    	return DB::table('users')->where('id', $uid)->update(array('UserPassword'=>md5($newpass)))
-					;
+    	return DB::table('users')->where('id', $uid)->update(array('UserPassword'=>Hash::make($newpass)));
     }
 }
