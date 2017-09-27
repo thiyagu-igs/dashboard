@@ -11,8 +11,7 @@
         @if(isset($booking))
         <input type="hidden" name="pid" value="{{$booking->BookID}}" />
         @endif			 
-            <label for="oldpass">Name</label> 				
-            
+            <label for="oldpass">Name</label>
             <input class="form-control" name="bname" type="text" value="{{$booking->BookName or ''}}" />
         </div>
         <div class="form-group">	
@@ -20,8 +19,7 @@
             <label for="pass">Fillable</label>	
             <input class="form-control formnumeric" name="brooms" type="text" maxlength="2" value="{{$booking->BookCount or ''}}" />
   	</div> <div class="col-sm-4">							 
-            <label for="pass_confirmation">Start Date	</label>					
-        
+            <label for="pass_confirmation">Start Date</label>
             <input class="form-control datepicker" name="bsdate" type="text" value="{{isset($booking)?
             date('m/d/Y',strtotime($booking->BookDate)):''}}{{Request::get('t_start') }}" />
         	</div><div class="col-sm-4">						 
